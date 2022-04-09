@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link
@@ -18,26 +21,26 @@
     <title>{% block title %}Home{% endblock %}</title>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbar"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbar">
-        <div class="navbar-nav">
-          {% if user.is_authenticated %}
-          <a class="nav-item nav-link" id="home" href="/profile">Profile</a>
-          <a class="nav-item nav-link" id="logout" href="/logout">Logout</a>
-          {% else %}
-          <a class="nav-item nav-link" id="login" href="/login">Login</a>
-          <a class="nav-item nav-link" id="signUp" href="/sign-up">Sign Up</a>
-          {% endif %}
-        </div>
-      </div>
+    <nav class="navbar navbar-light bg-white">
+        <a href="/" class="navbar-brand">Helping Hands</a>
+        <form class="form-inline">
+            {% if user.is_authenticated %}
+            <div class="input-group">
+                <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                  
+                    <button class="btn btn-outline-primary" type="button" id="button-addon2">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+              {% endif %}
+            </div>
+            {% if user.is_authenticated %}
+            <a class="btn btn-primary" href="/logout">Logout</a>
+            {% else %}
+            <a class="btn btn-primary" href="/login">Login</a>
+            {% endif %}
+        </form>
     </nav>
 
     {% with messages = get_flashed_messages(with_categories=true) %} {% if
