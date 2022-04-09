@@ -27,7 +27,6 @@ def login():
 
     return render_template("login.html", user=current_user)
 
-
 @auth.route('/logout')
 @login_required
 def logout():
@@ -42,6 +41,11 @@ def sign_up():
         first_name = request.form.get('firstName')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
+        interest_1 = request.form.get('interest_1')
+        interest_2 = request.form.get('interest_2')
+        interest_3 = request.form.get('interest_3')
+        interest_4 = request.form.get('interest_4')
+        interest_5 = request.form.get('interest_5')
 
         user = User.query.filter_by(email=email).first()
         if user:
@@ -55,8 +59,8 @@ def sign_up():
         elif len(password1) < 7:
             flash('Password must be at least 7 characters.', category='error')
         else:
-            new_user = User(email=email, first_name=first_name, password=generate_password_hash(
-                password1, method='sha256'))
+            new_user = User(email=email, first_name=first_name, interest_1=interest_1, interest_2=interest_2, 
+                            interest_3=interest_3, interest_4=interest_4, interest_5=interest_5, password=generate_password_hash(password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
@@ -64,3 +68,28 @@ def sign_up():
             return redirect(url_for('views.home'))
 
     return render_template("sign_up.html", user=current_user)
+
+# @auth.route('/interests', methods=['GET', 'POST'])
+# def select_interests():
+#     if request.method == 'POST':
+#         interest_1 = request.form.get('interest_1')
+#         interest_2 = request.form.get('interest_2')
+#         interest_3 = request.form.get('interest_3')
+#         interest_4 = request.form.get('interest_4')
+#         interest_5 = request.form.get('interest_5')
+
+#         if len(interest_1) > 0:
+#             current_user.interest_1 = interest_1
+#         elif len(interest_2) > 0:
+#             current_user.interest_2 = interest_2
+#         elif len(interest_3) > 0:
+#             current_user.interest_3 = interest_3
+#         elif len(interest_4) > 0:
+#             current_user.interest_4 = interest_4
+#         elif len(interest_5) > 0:
+#             current_user.interest_5 = interest_5
+
+#         db.session.commit()
+#         return redirect(url_for('views.profile'))
+
+#     return render_template("interest.html", user=current_user)

@@ -16,3 +16,10 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
     notes = db.relationship('Note')
+    interest_1 = db.Column(db.String(150))
+    interest_2 = db.Column(db.String(150))
+    interest_3 = db.Column(db.String(150))
+    interest_4 = db.Column(db.String(150))
+    interest_5 = db.Column(db.String(150))
+
+
