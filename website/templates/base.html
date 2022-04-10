@@ -23,8 +23,9 @@
   <body>
     <nav class="navbar navbar-light bg-white">
         <a href="/" class="navbar-brand">Helping Hands</a>
-        <form class="form-inline">
-            {% if user.is_authenticated %}
+        {% if user.is_authenticated %}
+          <a class="nav-item nav-link" id="profile" href="/profile">My Profile</a>
+          <form class="form-inline">
             <div class="input-group">
                 <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
                 <div class="input-group-append">
