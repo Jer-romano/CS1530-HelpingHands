@@ -26,7 +26,7 @@
         <form class="form-inline">
             {% if user.is_authenticated %}
             <div class="input-group">
-                <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" placeholder="Search Opportunities">
                 <div class="input-group-append">
                   
                     <button class="btn btn-outline-primary" type="button" id="button-addon2">
@@ -37,8 +37,10 @@
             </div>
             {% if user.is_authenticated %}
             <a class="btn btn-primary" href="/logout">Logout</a>
-            {% else %}
+            {% elif request.url_rule.endpoint == 'auth.sign_up' %}
             <a class="btn btn-primary" href="/login">Login</a>
+            {% elif not(user.is_authenticated) %}
+            <a class="btn btn-primary" href="/sign-up">Sign Up</a>
             {% endif %}
         </form>
     </nav>

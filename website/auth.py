@@ -68,27 +68,51 @@ def sign_up():
 
     return render_template("sign_up.html", user=current_user)
 
-# @auth.route('/interests', methods=['GET', 'POST'])
-# def select_interests():
-#     if request.method == 'POST':
-#         interest_1 = request.form.get('interest_1')
-#         interest_2 = request.form.get('interest_2')
-#         interest_3 = request.form.get('interest_3')
-#         interest_4 = request.form.get('interest_4')
-#         interest_5 = request.form.get('interest_5')
 
-#         if len(interest_1) > 0:
-#             current_user.interest_1 = interest_1
-#         elif len(interest_2) > 0:
-#             current_user.interest_2 = interest_2
-#         elif len(interest_3) > 0:
-#             current_user.interest_3 = interest_3
-#         elif len(interest_4) > 0:
-#             current_user.interest_4 = interest_4
-#         elif len(interest_5) > 0:
-#             current_user.interest_5 = interest_5
+@auth.route('/edit', methods=['GET', 'POST'])
+@login_required
+def edit_profile():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        first_name = request.form.get('firstName')
+        password1 = request.form.get('password1')
+        password2 = request.form.get('password2')
+        interest_1 = request.form.get('interest_1')
+        interest_2 = request.form.get('interest_2')
+        interest_3 = request.form.get('interest_3')
+        interest_4 = request.form.get('interest_4')
+        interest_5 = request.form.get('interest_5')
 
-#         db.session.commit()
-#         return redirect(url_for('views.profile'))
+        check = User.query.filter_by(email=email).first()
+        user = User.query.filter_by(id=current_user.id).first()
+        if check:
+            flash('Email already exists.', category='error')
+        elif len(email) > 0 and len(email) < 4:
+            flash('Email must be greater than 3 characters.', category='error')
+        elif len(first_name) > 0 and len(first_name) < 2:
+            flash('First name must be greater than 1 character.', category='error')
+        elif password1 != password2:
+            flash('Passwords don\'t match.', category='error')
+        elif len(password1) > 0 and len(password1) < 7:
+            flash('Password must be at least 7 characters.', category='error')
+        else:
+            if email != '':
+                user.email = email
+            if first_name != '':
+                user.first_name = first_name
+            if password1 != '':
+                user.password = generate_password_hash(password1, method='sha256')
+            if interest_1 != '':
+                user.interest_1 = interest_1
+            if interest_2 != '':
+                user.interest_2 = interest_2
+            if interest_3 != '':
+                user.interest_3 = interest_3
+            if interest_4 != '':
+                user.interest_4 = interest_4
+            if interest_5 != '':
+                user.interest_5 = interest_5
+            db.session.commit()
+            return redirect(url_for('views.profile'))
 
-#     return render_template("interest.html", user=current_user)
+    return render_template("edit.html", user=current_user)
