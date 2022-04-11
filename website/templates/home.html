@@ -22,10 +22,10 @@
 </head>
         
 <nav class="navbar navbar-light bg-white">
-        <a href="#" class="navbar-brand">Helping Hands</a>
+        <a href="/" class="navbar-brand">Helping Hands</a>
         <form class="form-inline">
             <div class="input-group">
-                <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2">
+                <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" placeholder="Search Opportunities">
                 <div class="input-group-append">
                     <button class="btn btn-outline-primary" type="button" id="button-addon2">
                         <i class="fa fa-search"></i>
@@ -34,6 +34,7 @@
                 </div>
             </div>
             <a class="btn btn-primary" href="/logout">Logout</a>
+            <a class="btn btn-primary" href="/profile">Profile</a>
         </form>
     </nav>
 
@@ -43,7 +44,7 @@
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body">
-                        <div class="h5">@{{ user.first_name }}</div>
+                        <a href=/profile class="h5">@{{ user.first_name }}</a>
                         <div class="h7 text-muted">Fullname : Miracles Lee Cross</div>
                         <div class="h7">Interested in {{ user.interest_1 }}, {{ user.interest_2 }}, {{ user.interest_3 }}, {{ user.interest_4 }}, {{ user.interest_5 }}
                         </div>
@@ -124,7 +125,8 @@
                                       <img class="rounded-circle" width="45" src="https://picsum.photos/50/50" alt="">
                                   </div>
                                   <div class="ml-2">
-                                      <div class="h5 m-0">@{{ user.first_name }}</div>
+                                      <!-- <div class="h5 m-0" >@{{ user.first_name }} </div> -->
+                                      <a href=/profile/{{ user.first_name }} class="h5 m-0">@{{ user.first_name }}</a>
                                       <div class="h7 text-muted">Miracles Lee Cross</div>
                                   </div>
                               </div>
@@ -149,7 +151,6 @@
                           <a class="card-link" href="#">
                               <h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adip.</h5>
                           </a>
-
                           <p class="card-text">
                             {{ note.data }}
                           </p>
