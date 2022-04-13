@@ -34,6 +34,7 @@ def home():
 @login_required
 def profile():
     if request.method == 'POST':
+        status = request.form.getlist('customSwitch1')
         note = request.form.get('note')
         if len(note) < 1:
             print()

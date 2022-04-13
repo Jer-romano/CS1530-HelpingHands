@@ -37,7 +37,10 @@ def logout():
 def sign_up():
     if request.method == 'POST':
         email = request.form.get('email')
+        username = request.form.get('username')
         first_name = request.form.get('firstName')
+        last_name = request.form.get('lastName')
+        zip_code = request.form.get('zipCode')
         password1 = request.form.get('password1')
         password2 = request.form.get('password2')
         interest_1 = request.form.get('interest_1')
@@ -45,10 +48,14 @@ def sign_up():
         interest_3 = request.form.get('interest_3')
         interest_4 = request.form.get('interest_4')
         interest_5 = request.form.get('interest_5')
+        points = 0
 
         user = User.query.filter_by(email=email).first()
+        check = User.query.filter_by(username=username).first()
         if user:
             flash('Email already exists.', category='error')
+        elif check:
+            flash('Username alredy taken.', category='error')
         elif len(email) < 4:
             flash('Email must be greater than 3 characters.', category='error')
         elif len(first_name) < 2:
@@ -58,12 +65,11 @@ def sign_up():
         elif len(password1) < 7:
             flash('Password must be at least 7 characters.', category='error')
         else:
-            new_user = User(email=email, first_name=first_name, interest_1=interest_1, interest_2=interest_2, 
-                            interest_3=interest_3, interest_4=interest_4, interest_5=interest_5, password=generate_password_hash(password1, method='sha256'))
+            new_user = User(email=email, username=username, first_name=first_name, last_name=last_name, zip_code=zip_code, interest_1=interest_1, interest_2=interest_2, 
+                            interest_3=interest_3, interest_4=interest_4, interest_5=interest_5, points=points, password=generate_password_hash(password1, method='sha256'))
             db.session.add(new_user)
             db.session.commit()
             login_user(new_user, remember=True)
-            flash('Account created!', category='success')
             return redirect(url_for('views.home'))
 
     return render_template("sign_up.html", user=current_user)
