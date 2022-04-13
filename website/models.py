@@ -26,5 +26,3 @@ class User(db.Model, UserMixin):
     interest_5 = db.Column(db.String(150))
     points = db.Column(db.String(150))
     status = db.Column(db.String(150))
-
-
