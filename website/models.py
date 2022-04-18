@@ -5,6 +5,7 @@ from sqlalchemy.sql import func
 
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100))
     data = db.Column(db.String(10000))
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
@@ -26,3 +27,9 @@ class User(db.Model, UserMixin):
     interest_5 = db.Column(db.String(150))
     points = db.Column(db.String(150))
     status = db.Column(db.String(150))
+
+#for table in reversed(meta.Base.metadata.sorted_tables):
+    # meta.Session.execute(table.delete()) 
+     #meta.Session.commit()
+#db.drop_all()
+#db.create_all()

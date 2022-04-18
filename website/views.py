@@ -35,10 +35,11 @@ def welcome():
 def home():
     if request.method == 'POST':
         note = request.form.get('note')
+        ntitle = request.form.get('note_title')
         if len(note) < 1:
             print()
         else:
-            new_note = Note(data=note, user_id=current_user.id)
+            new_note = Note(data=note, title=ntitle, user_id=current_user.id)
             db.session.add(new_note)
             db.session.commit()
 
@@ -50,10 +51,11 @@ def profile():
     if request.method == 'POST':
         status = request.form.getlist('customSwitch1')
         note = request.form.get('note')
+        nTitle = request.form.get('note_title')
         if len(note) < 1:
             print()
         else:
-            new_note = Note(data=note, user_id=current_user.id)
+            new_note = Note(data=note, title=nTitle, user_id=current_user.id)
             db.session.add(new_note)
             db.session.commit()
 

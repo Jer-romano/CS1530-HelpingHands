@@ -20,15 +20,20 @@
             <div class="input-group">
                 <input type="text" class="form-control" aria-label="Recipient's username" aria-describedby="button-addon2" placeholder="Search Opportunities">
                 <div class="input-group-append">
-                    <button class="btn btn-outline-primary" type="button" id="button-addon2">
+                    <div class="mr-xl-4 ml-2">
+                        <button class="btn btn-outline-primary, md-5" type="button" id="button-addon2">
                         <i class="fa fa-search" ></i>
-                    </button>
-                    
+                        </button>
+                    </div>    
                 </div>
             </div>
-            <a class="btn btn-primary" href="/logout">Logout</a>
-            <a class="btn btn-primary" href="/home">Feed</a>
-        </form>
+            <div class="ml-xl-5 md-5 mr-4">
+                <a class="btn btn-primary" href="/home">Feed</a>
+            </div>
+                <a class="btn btn-primary" href="/logout">Logout</a>
+            
+            </form>
+        </div>
     </nav>
 
 
@@ -85,6 +90,7 @@
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                               <form method="POST">
+                                <input name="note_title" id="note_title" class="form-control" placeholder="Title for your post"></input>
                                 <textarea name="note" id="note" class="form-control" placeholder="What do you want to share?"></textarea>
                                 <br />
                                 <div class="btn-group">
@@ -144,7 +150,7 @@
                       <div class="card-body">
                           <div class="text-muted h7 mb-2"> <i class="fa fa-clock-o"></i>{{ note.date }}</div>
                           <a class="card-link" href="#">
-                              <h5 class="card-title">Lorem ipsum dolor sit amet, consectetur adip.</h5>
+                              <h5 class="card-title"> {{note.title}}</h5>
                           </a>
                           <p class="card-text">
                             {{ note.data }}
