@@ -9,7 +9,21 @@ import json
 
 views = Blueprint('views', __name__)
 
+@views.route('/about/')
+def about():
+    return render_template('about.html', user=current_user)
 
+@views.route('/privacypolicy/')
+def privacypolicy():
+    return render_template('privacypolicy.html', user=current_user)
+
+@views.route('/contact/')
+def contact():
+    return render_template('contact.html', user=current_user)
+
+@views.route('/termsofuse/')
+def termsofuse():
+    return render_template('termsofuse.html', user=current_user)
 
 @views.route('/', methods=['GET'])
 def welcome():
@@ -17,7 +31,7 @@ def welcome():
 
 
 @views.route('/home', methods=['GET', 'POST'])
-@login_required 
+@login_required
 def home():
     if request.method == 'POST':
         note = request.form.get('note')
@@ -34,6 +48,7 @@ def home():
 @login_required
 def profile():
     if request.method == 'POST':
+        status = request.form.getlist('customSwitch1')
         note = request.form.get('note')
         if len(note) < 1:
             print()

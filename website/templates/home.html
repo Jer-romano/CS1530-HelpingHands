@@ -44,15 +44,15 @@
             <div class="col-md-3">
                 <div class="card">
                     <div class="card-body">
-                        <a href=/profile class="h5">@{{ user.first_name }}</a>
-                        <div class="h7 text-muted">Fullname : Miracles Lee Cross</div>
+                        <a href=/profile class="h5">@{{ user.username }}</a>
+                        <div class="h7 text-muted">{{ user.first_name }} {{ user.last_name }}</div>
                         <div class="h7">Interested in {{ user.interest_1 }}, {{ user.interest_2 }}, {{ user.interest_3 }}, {{ user.interest_4 }}, {{ user.interest_5 }}
                         </div>
                     </div>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item">
                             <div class="h6 text-muted">Volunteer Points</div>
-                            <div class="h5">5.2342</div>
+                            <div class="h5">{{ user.points }}</div>
                         </li>
                         <li class="list-group-item">
                             <div class="h6 text-muted">Status</div>
@@ -116,7 +116,7 @@
                 <!--- \\\\\\\Post-->
                 <ul class="list-group list-group-flush" id="notes"></ul>
                 {% for user in user.query.all() %}
-                  {% for note in user.notes %}
+                  {% for note in user.notes[::-1] %}
                   <div class="card gedf-card">
                       <div class="card-header">
                           <div class="d-flex justify-content-between align-items-center">
@@ -126,8 +126,8 @@
                                   </div>
                                   <div class="ml-2">
                                       <!-- <div class="h5 m-0" >@{{ user.first_name }} </div> -->
-                                      <a href=/profile/{{ user.first_name }} class="h5 m-0">@{{ user.first_name }}</a>
-                                      <div class="h7 text-muted">Miracles Lee Cross</div>
+                                      <a href=/profile/{{ user.username }} class="h5 m-0">@{{ user.username }}</a>
+                                      <div class="h7 text-muted">{{ user.first_name }} {{ user.last_name }}</div>
                                   </div>
                               </div>
                               <div>
@@ -158,7 +158,7 @@
                       <div class="card-footer">
                           <a href="#" class="card-link"><i class="fa fa-gittip"></i> Like</a>
                           <a href="#" class="card-link"><i class="fa fa-comment"></i> Comment</a>
-                          <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Share</a>
+                          <a href="#" class="card-link"><i class="fa fa-mail-forward"></i> Save</a>
                       </div>
                   </div>
                   {% endfor %}
