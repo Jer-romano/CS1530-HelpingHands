@@ -1,5 +1,5 @@
 from select import select
-from flask import Blueprint, render_template, request, flash, jsonify
+from flask import Blueprint, render_template, request, flash, jsonify, redirect, url_for
 from flask_login import login_required, current_user
 from sqlalchemy import desc
 from .models import Note
@@ -36,6 +36,12 @@ def home():
     if request.method == 'POST':
         note = request.form.get('note')
         ntitle = request.form.get('note_title')
+        search = request.form.get('search')
+        if search is not None:
+            if len(search) > 0:
+                current_user.search_post = search
+                db.session.commit()
+                return redirect(url_for('views.results')) 
         if len(note) < 1:
             print()
         else:
@@ -52,6 +58,12 @@ def profile():
         status = request.form.getlist('customSwitch1')
         note = request.form.get('note')
         nTitle = request.form.get('note_title')
+        search = request.form.get('search')
+        if search is not None:
+            if len(search) > 0:
+                current_user.search_post = search
+                db.session.commit()
+                return redirect(url_for('views.results')) 
         if len(note) < 1:
             print()
         else:
@@ -71,4 +83,11 @@ def delete_post():
             db.session.delete(note)
             db.session.commit()
 
-    return jsonify({})
+    return redirect(url_for('views.home'))
+
+@views.route('/results', methods=['GET'])
+def results():
+    search_results_title = Note.query.filter(Note.title.contains(current_user.search_post)).all()
+    search_results_text = Note.query.filter(Note.data.contains(current_user.search_post)).all()
+    search_results = search_results_title + search_results_text
+    return render_template('results.html', user=current_user, search_results=search_results)

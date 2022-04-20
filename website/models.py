@@ -19,6 +19,7 @@ class User(db.Model, UserMixin):
     first_name = db.Column(db.String(150))
     last_name = db.Column(db.String(150))
     zip_code = db.Column(db.String(150))
+    search_post = db.Column(db.String(150))
     notes = db.relationship('Note')
     interest_1 = db.Column(db.String(150))
     interest_2 = db.Column(db.String(150))
@@ -28,8 +29,4 @@ class User(db.Model, UserMixin):
     points = db.Column(db.String(150))
     status = db.Column(db.String(150))
 
-#for table in reversed(meta.Base.metadata.sorted_tables):
-    # meta.Session.execute(table.delete()) 
-     #meta.Session.commit()
-#db.drop_all()
-#db.create_all()
+
