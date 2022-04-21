@@ -3,6 +3,7 @@ from flask import Blueprint, render_template, request, flash, jsonify, redirect,
 from flask_login import login_required, current_user
 from sqlalchemy import desc
 from .models import Note
+from .models import User
 from . import db
 import json
 
@@ -28,7 +29,9 @@ def termsofuse():
 @views.route('/', methods=['GET'])
 def welcome():
     return render_template('index.html')
-
+@views.route('/profile/<username>')
+def interact(username):
+    return render_template('userinfo.html', user=User.query.filter_by(username=username).first())
 
 @views.route('/home', methods=['GET', 'POST'])
 @login_required
