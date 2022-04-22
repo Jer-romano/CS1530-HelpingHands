@@ -19,4 +19,5 @@ of a centralized "opportunity board" for all users.
 
 ### Dependencies
 - Python Version 3.5 or newer
+- Flask
 - JavaScript ECMAScript 2017 or newer
